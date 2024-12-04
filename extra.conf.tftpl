@@ -1,0 +1,18 @@
+[OUTPUT]
+    Name cloudwatch_logs
+    Match **
+    region ${log_group_region}
+    log_key log
+    log_group_name ${log_group_name}
+    log_stream_prefix httpd/
+    auto_create_group true
+
+[OUTPUT]
+    Name s3
+    Match **
+    bucket ${log_bucket_name}
+    region ${log_bucket_region}
+    total_file_size 250M
+    compression gzip
+    s3_key_format /httpd/%Y/%m/%d/%H_%M.gz
+    static_file_path On
